@@ -1,13 +1,12 @@
 ---
 - name: install | repo
 
-  include_role: 
+  import_role: 
     name: mongodb_repository
     vars:
        mongodb_version: {{mongo_version}}
   when: mongo_repo
 - name: install | install
-
   include_role: 
     name: mongodb_install
     vars:
