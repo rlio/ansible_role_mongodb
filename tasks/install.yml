@@ -4,13 +4,13 @@
   include_role: 
     name: community.mongodb.mongodb_repository
   vars:
-       mongodb_version: "{{ mongo_version }}"
+       mongodb_version: "{{ mongo_version | regex_replace('\\d+(?:\\.\\d+)')  }}"
   when: mongo_repo
 - name: install | install
   include_role: 
     name: community.mongodb.mongodb_install
   vars:
-       specific_mongodb_version: "{{ mongo_version }} | regex_replace('\\d+(?:\\.\\d+)')  }}"
+       specific_mongodb_version: "{{ mongo_version }}"
 
 - name: install | config
   include_role: 
