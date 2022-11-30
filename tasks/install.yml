@@ -4,24 +4,24 @@
   include_role: 
     name: mongodb_repository
   vars:
-       mongodb_version: {{ mongo_version }}
+       mongodb_version: "{{ mongo_version }}"
   when: mongo_repo
 - name: install | install
   include_role: 
     name: mongodb_install
   vars:
-       specific_mongodb_version: {{mongo_version}}
+       specific_mongodb_version: "{{ mongo_version }}"
 
 - name: install | config
   include_role: 
     name: mongodb_config
   vars:
-       bind_ip: {{mongo_net.bindIp}}    
-       config_port: {{mongo_net.port}}
-       log_path: {{mongo_systemlog.path}}
-       db_path: {{mongo_storage.dbPath}}
+       bind_ip: "{{mongo_net.bindIp}}"
+       config_port: "{{mongo_net.port}}"
+       log_path: "{{mongo_systemlog.path}}"
+       db_path: "{{mongo_storage.dbPath}}"
        skip_restart: not {{mongo_restart_config}}
-       authorization: {{mongo_security.authorization}}
+       authorization: "{{mongo_security.authorization}}"
 - block:
 
     - name: install | ensure log folder exists
