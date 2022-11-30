@@ -10,7 +10,7 @@
   include_role: 
     name: community.mongodb.mongodb_install
   vars:
-       specific_mongodb_version: "{{ mongo_version }}"
+       specific_mongodb_version: "{{ mongo_version }} | regex_replace('\\d+(?:\\.\\d+)')  }}"
 
 - name: install | config
   include_role: 
