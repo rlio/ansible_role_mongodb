@@ -1,0 +1,4 @@
+- name: linux | hardening
+
+  include_role: 
+    name: mongodb_linux

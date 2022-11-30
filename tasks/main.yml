@@ -7,11 +7,8 @@
 
 - include_tasks: install.yml
 
-- include_tasks: thp.yml
-  when: mongo_thp
-
-- include_tasks: numa.yml
-  when: mongo_numa
+- include_tasks: linux_hardening.yml
+  when: mongo_thp and mongo_numa
 
 - include_tasks: keyfile.yml
   when:
