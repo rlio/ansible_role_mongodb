@@ -4,7 +4,7 @@
   include_role: 
     name: community.mongodb.mongodb_repository
   vars:
-       mongodb_version: "{{ mongo_version | regex_replace('\\d+(?:\\.\\d+)')  }}"
+       mongodb_version: "{{ mongo_version | regex_search('\\d+(?:\\.\\d+)')  }}"
   when: mongo_repo
 - name: install | install
   include_role: 
@@ -21,7 +21,8 @@
        log_path: "{{mongo_systemlog.path}}"
        db_path: "{{mongo_storage.dbPath}}"
        skip_restart: not {{mongo_restart_config}}
-       authorization: "{{mongo_security.authorization}}"
+       replicaset: false #da sistemare per il cluster
+       authorization: "{{mongo_security.authorization | default('disable')}}"
 - block:
 
     - name: install | ensure log folder exists
@@ -50,7 +51,10 @@
   when: >-
     '/var/log/mongodb' not in mongo_systemlog.path and
     mongo_systemlog.destination == 'file'
-
+- name: Install apt package
+  apt:
+    name: "pip3"
+    state: present
 - name: install | pymongo {{ mongo_pymongo_version }}
   pip:
     name: pymongo

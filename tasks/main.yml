@@ -16,7 +16,7 @@
     - mongo_security.keyFile is defined
 
 - include_tasks: user_init.yml
-  when: set_user.changed
+#  when: set_user.changed
 
 - include_tasks: cluster.yml
   when: host_count != '1'
